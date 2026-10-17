@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Verificação de Segurança e Cadastro</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- Barra de Navegação Global (Oculta inicialmente no Estado 1 para não estragar o disfarce) -->
+  <nav id="nav-sistema-simulacao" class="top-nav hidden">
+    <div class="nav-container">
+      <a href="index.html" class="brand-title">CyberSense [MVP]</a>
+      <ul class="nav-links">
+        <li><a href="index.html">Dashboard (index.html)</a></li>
+        <li><a href="configuracao.html">Treino Contínuo (configuracao.html)</a></li>
+        <li><a href="relampago.html">Treino Relâmpago (relampago.html)</a></li>
+        <li><a href="simulacao.html" class="active">Simulador de Isca (simulacao.html)</a></li>
+        <li>
+          <button type="button" class="btn-reset-seed js-reset-seed">
+            Resetar Dados de Fábrica (Seed)
+          </button>
+        </li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- ========================================================================
+       ESTADO 1: A ISCA FALSA (Visível inicialmente sem a barra de navegação)
+       ======================================================================== -->
+  <section id="estado-1-isca" class="lure-wrapper">
+    <div class="lure-card">
+      <span id="isca-tag-topo" class="lure-header-tag">Notificação Urgente</span>
+      <h1 id="isca-titulo" style="font-size: 1.35rem; margin-bottom: 0.5rem;">
+        Carregando notificação...
+      </h1>
+
+      <div id="isca-texto" class="lure-message-box">
+        Carregando conteúdo da comunicação...
+      </div>
+
+      <div id="alerta-erro-isca" class="alert-box alert-danger hidden"></div>
+
+      <form id="form-isca-falsa" novalidate>
+        <div class="form-group">
+          <label for="input-vitima-nome">Nome Completo do Titular / Destinatário:</label>
+          <input
+            type="text"
+            id="input-vitima-nome"
+            class="form-control"
+            placeholder="Digite seu nome completo"
+            required
+          >
+        </div>
+
+        <div class="form-group">
+          <label for="input-vitima-contato">Telefone Celular ou E-mail de Confirmação:</label>
+          <input
+            type="text"
+            id="input-vitima-contato"
+            class="form-control"
+            placeholder="Ex: 31999990001 ou seuemail@dominio.com"
+            required
+          >
+        </div>
+
+        <button type="submit" id="btn-acao-isca" class="btn btn-danger btn-block">
+          Confirmar Dados Agora
+        </button>
+      </form>
+    </div>
+  </section>
+
+  <!-- ========================================================================
+       ESTADO 2: PÁGINA DE INTERCEPTAÇÃO DIDÁTICA, RAIO-X E OPT-OUT
+       (Oculta inicialmente; exibida após o submit do formulário da isca)
+       ======================================================================== -->
+  <main id="estado-2-interceptacao" class="container hidden">
+    <!-- Cabeçalho de Acolhimento Adaptado ao Modo -->
+    <section class="wire-card" style="border-width: 3px;">
+      <span class="badge badge-warning" style="margin-bottom: 0.5rem;">
+        INTERCEPTAÇÃO EDUCATIVA CYBERSENSE
+      </span>
+      <h1 id="mensagem-acolhimento-modo" style="font-size: 1.4rem; margin-bottom: 0.75rem;">
+        Atenção! Esta página era uma simulação educativa.
+      </h1>
+      <p id="resumo-registro-clique" style="font-size: 0.92rem; color: var(--text-secondary);"></p>
+    </section>
+
+    <!-- Seção: Raio-X da Ameaça -->
+    <section class="wire-card">
+      <h2>Raio-X da Ameaça (Análise Anatômica do Golpe)</h2>
+      <p style="margin-bottom: 0.75rem;">
+        Veja abaixo o texto exato da isca que você acabou de visualizar e os sinais de engenharia social presentes nela:
+      </p>
+
+      <div style="margin-bottom: 0.75rem;">
+        <span class="badge" id="raiox-categoria">Categoria: -</span>
+        <span class="badge badge-danger" id="raiox-gatilho" style="margin-left: 0.35rem;">Gatilho Mental: -</span>
+      </div>
+
+      <div class="lure-message-box">
+        <strong id="raiox-titulo-original" style="display: block; margin-bottom: 0.35rem;"></strong>
+        <span id="raiox-texto-original"></span>
+      </div>
+
+      <h3>Sinais de Alerta e Indícios do Golpe (Por que desconfiar?):</h3>
+      <ul id="lista-indicios-raiox" class="raiox-list"></ul>
+    </section>
+
+    <!-- Seção: Trava de Ética e Privacidade (Opt-out) -->
+    <section class="wire-card">
+      <h2>Trava de Ética e Privacidade (Opt-out Permanente)</h2>
+      <p style="margin-bottom: 1rem; font-size: 0.95rem;">
+        O projeto <strong>CyberSense</strong> respeita integralmente a sua autonomia. Caso você não deseje mais receber simulações educativas no contato informado (<strong id="optout-contato-exibicao"></strong>), clique no botão abaixo para cancelar campanhas vinculadas e adicionar seu contato à lista de bloqueio permanente (<code>cybersense_blocklist</code>).
+      </p>
+
+      <button type="button" id="btn-optout" class="btn btn-danger">
+        Não quero mais participar (Opt-out)
+      </button>
+
+      <div id="feedback-optout" class="alert-box alert-success hidden" style="margin-top: 1rem; margin-bottom: 0;"></div>
+    </section>
+
+    <!-- Atalhos de Retorno para Demonstração -->
+    <div style="display: flex; flex-wrap: wrap; gap: 0.75rem;">
+      <a href="index.html" class="btn">Ir para o Dashboard Analítico</a>
+      <a href="relampago.html" class="btn btn-secondary">Ver Radar ao Vivo (Treino Relâmpago)</a>
+      <a href="configuracao.html" class="btn btn-secondary">Ver Campanhas Contínuas</a>
+    </div>
+  </main>
+
+  <script src="db_init.js"></script>
+  <script src="simulacao.js"></script>
+</body>
+</html>
+

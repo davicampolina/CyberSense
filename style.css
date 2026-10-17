@@ -1,0 +1,480 @@
+/* ==========================================================================
+   CYBERSENSE MVP - SPRINT 1
+   Estilo Wireframe Estrutural Limpo (Mobile-First, Alto Contraste, Zero Frameworks)
+   ========================================================================== */
+
+:root {
+  --bg-page: #f4f4f6;
+  --bg-surface: #ffffff;
+  --bg-muted: #e9ecef;
+  --text-main: #111111;
+  --text-secondary: #444444;
+  --border-color: #222222;
+  --border-muted: #888888;
+  --accent-primary: #1a1a1a;
+  --status-danger-bg: #ffe5e5;
+  --status-danger-border: #b00020;
+  --status-danger-text: #800016;
+  --status-success-bg: #e6f4ea;
+  --status-success-border: #1e7e34;
+  --status-success-text: #145523;
+  --status-warning-bg: #fff8e1;
+  --status-warning-border: #b26a00;
+  --status-warning-text: #663c00;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+  background-color: var(--bg-page);
+  color: var(--text-main);
+  line-height: 1.5;
+  font-size: 16px;
+  padding-bottom: 3rem;
+}
+
+/* ==========================================================================
+   NAVEGAÇÃO GLOBAL (WIREFRAME)
+   ========================================================================== */
+
+.top-nav {
+  background-color: var(--bg-surface);
+  border-bottom: 2px solid var(--border-color);
+  padding: 0.75rem 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.nav-container {
+  max-width: 1140px;
+  margin: 0 auto;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+}
+
+.brand-title {
+  font-weight: 800;
+  font-size: 1.15rem;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  border: 2px solid var(--border-color);
+  padding: 0.25rem 0.6rem;
+  background-color: var(--bg-muted);
+  color: var(--text-main);
+  text-decoration: none;
+}
+
+.nav-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  list-style: none;
+  align-items: center;
+}
+
+.nav-links a {
+  display: inline-block;
+  padding: 0.4rem 0.75rem;
+  border: 1px solid var(--border-color);
+  background-color: var(--bg-surface);
+  color: var(--text-main);
+  text-decoration: none;
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+.nav-links a:hover,
+.nav-links a.active {
+  background-color: var(--accent-primary);
+  color: #ffffff;
+}
+
+.btn-reset-seed {
+  padding: 0.4rem 0.7rem;
+  border: 1px dashed var(--status-danger-border);
+  background-color: var(--status-danger-bg);
+  color: var(--status-danger-text);
+  font-size: 0.8rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.btn-reset-seed:hover {
+  background-color: var(--status-danger-border);
+  color: #ffffff;
+}
+
+/* ==========================================================================
+   CONTAINERS E GRIDS
+   ========================================================================== */
+
+.container {
+  max-width: 1140px;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+.page-header {
+  border: 2px solid var(--border-color);
+  background-color: var(--bg-surface);
+  padding: 1rem 1.25rem;
+  margin-bottom: 1.5rem;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+}
+
+.page-header h1 {
+  font-size: 1.4rem;
+  text-transform: uppercase;
+}
+
+.page-header p {
+  color: var(--text-secondary);
+  font-size: 0.95rem;
+}
+
+.wire-card {
+  background-color: var(--bg-surface);
+  border: 2px solid var(--border-color);
+  padding: 1.25rem;
+  margin-bottom: 1.5rem;
+}
+
+.wire-card h2 {
+  font-size: 1.15rem;
+  text-transform: uppercase;
+  border-bottom: 2px solid var(--border-color);
+  padding-bottom: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.wire-card h3 {
+  font-size: 1rem;
+  margin-bottom: 0.5rem;
+}
+
+.grid-2 {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.25rem;
+}
+
+.grid-3 {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.25rem;
+}
+
+@media (min-width: 768px) {
+  .grid-2 {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .grid-3 {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+/* ==========================================================================
+   FORMULÁRIOS E BOTÕES
+   ========================================================================== */
+
+.form-group {
+  margin-bottom: 1rem;
+}
+
+.form-group label {
+  display: block;
+  font-weight: 700;
+  margin-bottom: 0.35rem;
+  font-size: 0.92rem;
+}
+
+.form-control {
+  width: 100%;
+  padding: 0.55rem 0.7rem;
+  border: 2px solid var(--border-color);
+  background-color: #ffffff;
+  color: var(--text-main);
+  font-size: 0.95rem;
+  font-family: inherit;
+}
+
+.form-control:focus {
+  outline: 2px dashed var(--accent-primary);
+  outline-offset: 2px;
+}
+
+.radio-group,
+.checkbox-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  padding: 0.6rem;
+  border: 1px solid var(--border-muted);
+  background-color: var(--bg-page);
+}
+
+.radio-label,
+.checkbox-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-weight: 600;
+  font-size: 0.92rem;
+  cursor: pointer;
+}
+
+.btn {
+  display: inline-block;
+  padding: 0.6rem 1rem;
+  border: 2px solid var(--border-color);
+  background-color: var(--accent-primary);
+  color: #ffffff;
+  font-weight: 700;
+  font-size: 0.92rem;
+  text-decoration: none;
+  cursor: pointer;
+  text-align: center;
+}
+
+.btn:hover {
+  background-color: #333333;
+}
+
+.btn:disabled {
+  background-color: var(--bg-muted);
+  color: var(--border-muted);
+  border-color: var(--border-muted);
+  cursor: not-allowed;
+}
+
+.btn-secondary {
+  background-color: var(--bg-surface);
+  color: var(--text-main);
+}
+
+.btn-secondary:hover {
+  background-color: var(--bg-muted);
+  color: var(--text-main);
+}
+
+.btn-danger {
+  background-color: var(--status-danger-border);
+  border-color: var(--status-danger-border);
+  color: #ffffff;
+}
+
+.btn-danger:hover {
+  background-color: var(--status-danger-text);
+}
+
+.btn-sm {
+  padding: 0.35rem 0.65rem;
+  font-size: 0.82rem;
+}
+
+.btn-block {
+  display: block;
+  width: 100%;
+}
+
+/* ==========================================================================
+   TABELAS RESPONSIVAS
+   ========================================================================== */
+
+.table-responsive {
+  width: 100%;
+  overflow-x: auto;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.9rem;
+}
+
+table th,
+table td {
+  border: 1px solid var(--border-color);
+  padding: 0.55rem 0.7rem;
+  text-align: left;
+  vertical-align: middle;
+}
+
+table th {
+  background-color: var(--bg-muted);
+  font-weight: 700;
+  text-transform: uppercase;
+  font-size: 0.8rem;
+}
+
+table tbody tr:nth-child(even) {
+  background-color: #fafafa;
+}
+
+/* ==========================================================================
+   COMPONENTES DE MÉTRICAS, BARRA DE PROGRESSO E ALERTAS
+   ========================================================================== */
+
+.metric-big {
+  font-size: 2.2rem;
+  font-weight: 800;
+  margin: 0.4rem 0;
+}
+
+.progress-bar-container {
+  width: 100%;
+  height: 24px;
+  border: 2px solid var(--border-color);
+  background-color: var(--bg-page);
+  margin: 0.6rem 0;
+  overflow: hidden;
+}
+
+.progress-bar-fill {
+  height: 100%;
+  background-color: var(--accent-primary);
+  width: 0%;
+  transition: width 0.25s ease-in-out;
+}
+
+.funnel-list {
+  list-style: none;
+}
+
+.funnel-list li {
+  display: flex;
+  justify-content: space-between;
+  padding: 0.45rem 0.6rem;
+  border: 1px solid var(--border-color);
+  margin-bottom: 0.4rem;
+  background-color: var(--bg-page);
+  font-weight: 600;
+}
+
+.badge {
+  display: inline-block;
+  padding: 0.15rem 0.45rem;
+  border: 1px solid var(--border-color);
+  font-size: 0.78rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  background-color: var(--bg-muted);
+}
+
+.badge-active,
+.badge-success {
+  background-color: var(--status-success-bg);
+  border-color: var(--status-success-border);
+  color: var(--status-success-text);
+}
+
+.badge-danger,
+.badge-optout {
+  background-color: var(--status-danger-bg);
+  border-color: var(--status-danger-border);
+  color: var(--status-danger-text);
+}
+
+.badge-warning {
+  background-color: var(--status-warning-bg);
+  border-color: var(--status-warning-border);
+  color: var(--status-warning-text);
+}
+
+.alert-box {
+  padding: 0.85rem 1rem;
+  border: 2px solid var(--border-color);
+  margin-bottom: 1rem;
+  font-weight: 600;
+}
+
+.alert-danger {
+  background-color: var(--status-danger-bg);
+  border-color: var(--status-danger-border);
+  color: var(--status-danger-text);
+}
+
+.alert-success {
+  background-color: var(--status-success-bg);
+  border-color: var(--status-success-border);
+  color: var(--status-success-text);
+}
+
+.alert-warning {
+  background-color: var(--status-warning-bg);
+  border-color: var(--status-warning-border);
+  color: var(--status-warning-text);
+}
+
+/* ==========================================================================
+   ESTILOS ESPECÍFICOS PARA A ISCA FALSA E RAIO-X (SIMULACAO.HTML)
+   ========================================================================== */
+
+.lure-wrapper {
+  max-width: 520px;
+  margin: 2.5rem auto;
+  padding: 0 1rem;
+}
+
+.lure-card {
+  background-color: #ffffff;
+  border: 3px solid var(--border-color);
+  padding: 1.5rem;
+}
+
+.lure-header-tag {
+  display: inline-block;
+  background-color: var(--accent-primary);
+  color: #ffffff;
+  font-size: 0.75rem;
+  font-weight: 700;
+  padding: 0.2rem 0.5rem;
+  text-transform: uppercase;
+  margin-bottom: 0.75rem;
+}
+
+.lure-message-box {
+  border: 1px dashed var(--border-color);
+  background-color: var(--bg-page);
+  padding: 1rem;
+  margin: 1rem 0;
+  font-size: 1rem;
+}
+
+.raiox-list {
+  margin-left: 1.25rem;
+  margin-top: 0.75rem;
+}
+
+.raiox-list li {
+  margin-bottom: 0.5rem;
+  padding: 0.4rem;
+  background-color: var(--status-warning-bg);
+  border-left: 4px solid var(--status-warning-border);
+}
+
+.code-box {
+  font-family: monospace;
+  word-break: break-all;
+  padding: 0.65rem;
+  background-color: var(--bg-page);
+  border: 1px solid var(--border-color);
+  margin: 0.5rem 0;
+  font-size: 0.9rem;
+}
+
+.hidden {
+  display: none !important;
+}
+

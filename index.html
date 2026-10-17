@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CyberSense - Dashboard Analítico</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- Barra de Navegação Global -->
+  <nav class="top-nav">
+    <div class="nav-container">
+      <a href="index.html" class="brand-title">CyberSense [MVP]</a>
+      <ul class="nav-links">
+        <li><a href="index.html" class="active">Dashboard (index.html)</a></li>
+        <li><a href="configuracao.html">Treino Contínuo (configuracao.html)</a></li>
+        <li><a href="relampago.html">Treino Relâmpago (relampago.html)</a></li>
+        <li><a href="simulacao.html">Simulador de Isca (simulacao.html)</a></li>
+        <li>
+          <button type="button" class="btn-reset-seed js-reset-seed">
+            Resetar Dados de Fábrica (Seed)
+          </button>
+        </li>
+      </ul>
+    </div>
+  </nav>
+
+  <main class="container">
+    <!-- Cabeçalho e Atalhos Rápidos -->
+    <header class="page-header">
+      <div>
+        <h1>Dashboard Analítico de Conscientização</h1>
+        <p>Monitoramento consolidado de resistência a Spear Phishing e Engenharia Social.</p>
+      </div>
+      <div style="display: flex; flex-wrap: wrap; gap: 0.5rem;">
+        <a href="configuracao.html" class="btn">Configurar Treino Contínuo</a>
+        <a href="relampago.html" class="btn btn-secondary">Abrir Treino Relâmpago</a>
+      </div>
+    </header>
+
+    <!-- Barra de Controle: Filtro de Visão e Botão de Apoio para Testes -->
+    <section class="wire-card">
+      <div class="grid-2" style="align-items: end;">
+        <div class="form-group" style="margin-bottom: 0;">
+          <label for="filtro-modo">Filtrar Métricas por Modalidade:</label>
+          <select id="filtro-modo" class="form-control">
+            <option value="Geral">Geral (Todos os Modos)</option>
+            <option value="Familiar">Apenas Modo Familiar</option>
+            <option value="Autodefesa">Apenas Autodefesa</option>
+          </select>
+        </div>
+        <div style="display: flex; flex-direction: column; gap: 0.35rem;">
+          <label style="font-weight: 700; font-size: 0.92rem;">Apoio para Apresentação / Testes ao Vivo:</label>
+          <button type="button" id="btn-simular-ignorado" class="btn btn-secondary">
+            Simular Usuário Ignorando Golpe (+1 Ignorado)
+          </button>
+        </div>
+      </div>
+      <div id="feedback-dashboard" class="alert-box alert-success hidden" style="margin-top: 1rem; margin-bottom: 0;"></div>
+    </section>
+
+    <!-- Cards de Métricas Principais -->
+    <section class="grid-3">
+      <!-- Card 1: Score de Imunidade -->
+      <article class="wire-card">
+        <h2>1. Score de Imunidade (%)</h2>
+        <p style="font-size: 0.88rem; color: var(--text-secondary);">
+          Proporção de simulações ignoradas com sucesso frente ao total de interações.
+        </p>
+        <div id="valor-score-imunidade" class="metric-big">0%</div>
+        <div class="progress-bar-container" aria-label="Barra de Progresso do Score de Imunidade">
+          <div id="barra-score-imunidade" class="progress-bar-fill" style="width: 0%;"></div>
+        </div>
+        <p id="detalhe-score-imunidade" style="font-size: 0.85rem; font-weight: 600;">
+          0 ignorados de 0 eventos registrados
+        </p>
+      </article>
+
+      <!-- Card 2: Funil de Simulações -->
+      <article class="wire-card">
+        <h2>2. Funil de Simulações</h2>
+        <p style="font-size: 0.88rem; color: var(--text-secondary); margin-bottom: 0.75rem;">
+          Visão consolidada entre campanhas configuradas e quedas reais.
+        </p>
+        <ul class="funnel-list">
+          <li>
+            <span>Campanhas / Disparos Configurados:</span>
+            <strong id="funil-configurados">0</strong>
+          </li>
+          <li>
+            <span>Total de Eventos Registrados:</span>
+            <strong id="funil-eventos">0</strong>
+          </li>
+          <li>
+            <span>Total de Quedas ("Clicou_Caiu"):</span>
+            <strong id="funil-quedas" style="color: var(--status-danger-text);">0</strong>
+          </li>
+          <li>
+            <span>Golpes Ignorados ("Ignorou"):</span>
+            <strong id="funil-ignorados" style="color: var(--status-success-text);">0</strong>
+          </li>
+        </ul>
+      </article>
+
+      <!-- Card 3: Diagnóstico Calcanhar de Aquiles -->
+      <article class="wire-card">
+        <h2>3. Diagnóstico "Calcanhar de Aquiles"</h2>
+        <p style="font-size: 0.88rem; color: var(--text-secondary); margin-bottom: 0.75rem;">
+          Cruzamento entre cliques indevidos e os gatilhos mentais do catálogo de templates.
+        </p>
+        <div id="box-calcanhar-aquiles" class="alert-box alert-warning" style="margin-bottom: 0.75rem;">
+          Carregando diagnóstico...
+        </div>
+        <div id="resumo-categorias-quedas" style="font-size: 0.85rem;"></div>
+      </article>
+    </section>
+
+    <!-- Tabelas de Histórico Recente e Blocklist -->
+    <section class="grid-2">
+      <!-- Histórico Recente de Cliques / Eventos -->
+      <div class="wire-card">
+        <h2>Histórico Recente de Interações (cybersense_cliques)</h2>
+        <div class="table-responsive">
+          <table>
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Modo</th>
+                <th>Vítima / Alvo</th>
+                <th>Template / Categoria</th>
+                <th>Ação</th>
+                <th>Data/Hora</th>
+              </tr>
+            </thead>
+            <tbody id="tabela-historico-cliques">
+              <tr>
+                <td colspan="6">Carregando histórico...</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Listagem Atual da Blocklist Ética -->
+      <div class="wire-card">
+        <h2>Trava Ética: Contatos em Opt-out (cybersense_blocklist)</h2>
+        <p style="font-size: 0.88rem; color: var(--text-secondary); margin-bottom: 0.75rem;">
+          Contatos listados abaixo possuem bloqueio permanente contra novos cadastros de treino.
+        </p>
+        <div class="table-responsive">
+          <table>
+            <thead>
+              <tr>
+                <th>ID Bloqueio</th>
+                <th>Contato Bloqueado</th>
+                <th>Data do Opt-out</th>
+              </tr>
+            </thead>
+            <tbody id="tabela-blocklist-atual">
+              <tr>
+                <td colspan="3">Carregando blocklist...</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script src="db_init.js"></script>
+  <script src="dashboard.js"></script>
+</body>
+</html>
+

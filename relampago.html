@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CyberSense - Treino Relâmpago e Radar ao Vivo</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- Barra de Navegação Global -->
+  <nav class="top-nav">
+    <div class="nav-container">
+      <a href="index.html" class="brand-title">CyberSense [MVP]</a>
+      <ul class="nav-links">
+        <li><a href="index.html">Dashboard (index.html)</a></li>
+        <li><a href="configuracao.html">Treino Contínuo (configuracao.html)</a></li>
+        <li><a href="relampago.html" class="active">Treino Relâmpago (relampago.html)</a></li>
+        <li><a href="simulacao.html">Simulador de Isca (simulacao.html)</a></li>
+        <li>
+          <button type="button" class="btn-reset-seed js-reset-seed">
+            Resetar Dados de Fábrica (Seed)
+          </button>
+        </li>
+      </ul>
+    </div>
+  </nav>
+
+  <main class="container">
+    <header class="page-header">
+      <div>
+        <h1>Central do Treino Relâmpago e Radar ao Vivo</h1>
+        <p>Gere iscas educativas instantâneas para grupos ou amigos e acompanhe as quedas em tempo real.</p>
+      </div>
+    </header>
+
+    <div class="grid-2">
+      <!-- BLOCO A: Gerador de Iscas -->
+      <section class="wire-card">
+        <h2>Bloco A: Gerador de Iscas Relâmpago</h2>
+
+        <div id="alerta-relampago" class="alert-box hidden"></div>
+
+        <form id="form-relampago" novalidate>
+          <!-- Nome do Remetente -->
+          <div class="form-group">
+            <label for="input-nome-remetente">Nome do Remetente (Quem está enviando o teste):</label>
+            <input
+              type="text"
+              id="input-nome-remetente"
+              class="form-control"
+              placeholder="Ex: Thiago"
+              required
+            >
+          </div>
+
+          <!-- Mecânica de Disparo -->
+          <div class="form-group">
+            <label>Mecânica de Disparo:</label>
+            <div class="radio-group">
+              <label class="radio-label">
+                <input type="radio" name="tipo_disparo" value="Grupo_WhatsApp" checked>
+                Isca de Grupo WhatsApp
+              </label>
+              <label class="radio-label">
+                <input type="radio" name="tipo_disparo" value="Disparo_Direto">
+                Disparo Direto SMS
+              </label>
+            </div>
+          </div>
+
+          <!-- Telefone do Alvo (Visível apenas se escolher Disparo Direto SMS) -->
+          <div id="grupo-telefone-alvo" class="form-group hidden">
+            <label for="input-telefone-alvo">Telefone do Alvo (Disparo Direto SMS):</label>
+            <input
+              type="text"
+              id="input-telefone-alvo"
+              class="form-control"
+              placeholder="Ex: 31997776655"
+            >
+          </div>
+
+          <!-- Escolha do Modelo de Golpe (Carregado de cybersense_templates) -->
+          <div class="form-group">
+            <label for="select-modelo-golpe">Escolha do Modelo de Golpe (Template):</label>
+            <select id="select-modelo-golpe" class="form-control" required></select>
+          </div>
+
+          <button type="submit" class="btn btn-block">Gerar Link de Simulação Relâmpago</button>
+        </form>
+
+        <!-- Caixa Destacada com a URL Gerada -->
+        <div id="box-link-gerado" class="alert-box alert-warning hidden" style="margin-top: 1.25rem; margin-bottom: 0;">
+          <h3>Isca Relâmpago Gerada com Sucesso!</h3>
+          <p style="font-size: 0.88rem;">Compartilhe ou teste a URL parametrizada abaixo:</p>
+          <div id="texto-link-gerado" class="code-box"></div>
+          <div style="display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 0.65rem;">
+            <button type="button" id="btn-copiar-link" class="btn btn-sm">
+              Copiar Link
+            </button>
+            <a id="link-testar-nova-aba" href="simulacao.html" target="_blank" rel="noopener" class="btn btn-secondary btn-sm">
+              Testar Isca em Nova Aba
+            </a>
+          </div>
+          <p id="feedback-copia" style="font-size: 0.82rem; margin-top: 0.4rem;" class="hidden"></p>
+        </div>
+      </section>
+
+      <!-- BLOCO B: Radar ao Vivo -->
+      <section class="wire-card">
+        <div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; border-bottom: 2px solid var(--border-color); padding-bottom: 0.5rem; margin-bottom: 1rem; gap: 0.5rem;">
+          <h2 style="border-bottom: none; padding-bottom: 0; margin-bottom: 0;">Bloco B: Radar ao Vivo</h2>
+          <button type="button" id="btn-atualizar-radar" class="btn btn-secondary btn-sm">
+            Atualizar Radar
+          </button>
+        </div>
+
+        <!-- Contador Total de Quedas no Modo Relâmpago -->
+        <div class="alert-box alert-danger" style="display: flex; justify-content: space-between; align-items: center;">
+          <span id="contador-quedas-relampago" style="font-size: 1.15rem; font-weight: 800;">
+            Cliques na isca: 0
+          </span>
+          <span class="badge">Monitoramento Real-Time (Storage Sync)</span>
+        </div>
+
+        <!-- Tabela em Tempo Real de Quem Caiu no Modo Relâmpago -->
+        <h3>Vítimas Interceptadas no Modo Relâmpago</h3>
+        <div class="table-responsive" style="margin-bottom: 1.25rem;">
+          <table>
+            <thead>
+              <tr>
+                <th>Nome da Vítima</th>
+                <th>Contato</th>
+                <th>Isca Utilizada</th>
+                <th>Horário Exato</th>
+              </tr>
+            </thead>
+            <tbody id="tabela-radar-quedas">
+              <tr>
+                <td colspan="4">Carregando radar...</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Lista de Iscas Relâmpago Criadas -->
+        <h3>Iscas Relâmpago Criadas (cybersense_relampago)</h3>
+        <div class="table-responsive">
+          <table>
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Remetente / Tipo</th>
+                <th>Template</th>
+                <th>Link / Teste</th>
+              </tr>
+            </thead>
+            <tbody id="tabela-iscas-criadas">
+              <tr>
+                <td colspan="4">Carregando iscas criadas...</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <script src="db_init.js"></script>
+  <script src="relampago.js"></script>
+</body>
+</html>
+

@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CyberSense - Configuração de Treino Contínuo</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- Barra de Navegação Global -->
+  <nav class="top-nav">
+    <div class="nav-container">
+      <a href="index.html" class="brand-title">CyberSense [MVP]</a>
+      <ul class="nav-links">
+        <li><a href="index.html">Dashboard (index.html)</a></li>
+        <li><a href="configuracao.html" class="active">Treino Contínuo (configuracao.html)</a></li>
+        <li><a href="relampago.html">Treino Relâmpago (relampago.html)</a></li>
+        <li><a href="simulacao.html">Simulador de Isca (simulacao.html)</a></li>
+        <li>
+          <button type="button" class="btn-reset-seed js-reset-seed">
+            Resetar Dados de Fábrica (Seed)
+          </button>
+        </li>
+      </ul>
+    </div>
+  </nav>
+
+  <main class="container">
+    <header class="page-header">
+      <div>
+        <h1>Configuração de Treino Contínuo</h1>
+        <p>Cadastre jornadas de simulação recorrente no Modo Familiar (Apadrinhamento) ou Modo Autodefesa.</p>
+      </div>
+    </header>
+
+    <!-- Formulário de Cadastro de Campanha Contínua -->
+    <section class="wire-card">
+      <h2>Nova Campanha de Treino Contínuo</h2>
+
+      <div id="alerta-configuracao" class="alert-box hidden"></div>
+
+      <form id="form-campanha" novalidate>
+        <!-- Seletor de Modo no Topo -->
+        <div class="form-group">
+          <label>Selecione a Modalidade de Treinamento:</label>
+          <div class="radio-group">
+            <label class="radio-label">
+              <input type="radio" name="modo_treino" value="Familiar" checked>
+              Modo Familiar (Apadrinhamento)
+            </label>
+            <label class="radio-label">
+              <input type="radio" name="modo_treino" value="Autodefesa">
+              Modo Autodefesa (Autotreinamento)
+            </label>
+          </div>
+        </div>
+
+        <div class="grid-2">
+          <!-- Campo: Nome do Protegido (Visível apenas no Modo Familiar) -->
+          <div id="grupo-nome-alvo" class="form-group">
+            <label for="input-nome-alvo">Nome do Protegido:</label>
+            <input
+              type="text"
+              id="input-nome-alvo"
+              class="form-control"
+              placeholder="Ex: Dona Lúcia, Tio Jorge..."
+            >
+          </div>
+
+          <!-- Campo: Contato (Adapta o rótulo conforme Familiar vs Autodefesa) -->
+          <div id="grupo-contato-alvo" class="form-group">
+            <label id="label-contato-alvo" for="input-contato-alvo">
+              Contato do Protegido (Telefone ou E-mail):
+            </label>
+            <input
+              type="text"
+              id="input-contato-alvo"
+              class="form-control"
+              placeholder="Ex: 31999990001 ou email@dominio.com (Teste blocklist: 31988887777)"
+              required
+            >
+          </div>
+        </div>
+
+        <div class="grid-2">
+          <!-- Campo: Nível de Dificuldade (Visível apenas no Modo Familiar) -->
+          <div id="grupo-nivel-dificuldade" class="form-group">
+            <label for="select-nivel-dificuldade">Nível de Dificuldade:</label>
+            <select id="select-nivel-dificuldade" class="form-control">
+              <option value="Iniciante">Iniciante</option>
+              <option value="Intermediario">Intermediário</option>
+              <option value="Avancado">Avançado</option>
+            </select>
+          </div>
+
+          <!-- Campo: Frequência Mensal de Testes Surpresa (Visível apenas no Modo Autodefesa) -->
+          <div id="grupo-frequencia-mensal" class="form-group hidden">
+            <label for="select-frequencia-mensal">Frequência Mensal de Testes Surpresa:</label>
+            <select id="select-frequencia-mensal" class="form-control">
+              <option value="1">1 vez/mês</option>
+              <option value="3" selected>3 vezes/mês</option>
+              <option value="5">5 vezes/mês</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Checkboxes: Tags de Interesse -->
+        <div class="form-group">
+          <label>Tags de Interesse (Contextos das Simulações):</label>
+          <div class="checkbox-group">
+            <label class="checkbox-label">
+              <input type="checkbox" name="tags_interesse" value="Bancos" checked>
+              Bancos
+            </label>
+            <label class="checkbox-label">
+              <input type="checkbox" name="tags_interesse" value="Compras Online" checked>
+              Compras Online
+            </label>
+            <label class="checkbox-label">
+              <input type="checkbox" name="tags_interesse" value="Delivery">
+              Delivery
+            </label>
+            <label class="checkbox-label">
+              <input type="checkbox" name="tags_interesse" value="Saude">
+              Saúde
+            </label>
+          </div>
+        </div>
+
+        <button type="submit" class="btn">Salvar Campanha de Treino Contínuo</button>
+      </form>
+    </section>
+
+    <!-- Tabela de Campanhas Cadastradas -->
+    <section class="wire-card">
+      <h2>Campanhas Contínuas Cadastradas (cybersense_campanhas)</h2>
+      <p style="font-size: 0.88rem; color: var(--text-secondary); margin-bottom: 0.75rem;">
+        Utilize o botão <strong>"Simular Envio Agora"</strong> para disparar uma isca parametrizada da campanha escolhida.
+      </p>
+      <div class="table-responsive">
+        <table>
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Modo</th>
+              <th>Alvo / Contato</th>
+              <th>Tags de Interesse</th>
+              <th>Dificuldade / Frequência</th>
+              <th>Status</th>
+              <th>Ação Prática</th>
+            </tr>
+          </thead>
+          <tbody id="tabela-campanhas">
+            <tr>
+              <td colspan="7">Carregando campanhas...</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+  </main>
+
+  <script src="db_init.js"></script>
+  <script src="configuracao.js"></script>
+</body>
+</html>
+
